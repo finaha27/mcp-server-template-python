@@ -44,6 +44,11 @@ Running `main.py` now starts two local servers:
 
 The MCP tool does not parse PDFs directly. It sends an HTTP request to the PDF API as if it were a remote service.
 
+You can configure the PDF API host/port using environment variables:
+- `PDF_API_BIND_HOST` (default: `127.0.0.1`)
+- `PDF_API_CONNECT_HOST` (default: `127.0.0.1`)
+- `PDF_API_PORT` (default: `8001`)
+
 ## Lecture PDF API
 
 The separate API app is implemented in `pdf_api_server.py`.

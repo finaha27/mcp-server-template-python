@@ -3,6 +3,7 @@ MCP Server Template
 """
 
 import json
+import os
 from urllib import error, parse, request
 
 from mcp.server.fastmcp import FastMCP
@@ -14,9 +15,10 @@ import mcp.types as types
 
 mcp = FastMCP("Echo Server", stateless_http=True)
 
-PDF_API_HOST = "127.0.0.1"
-PDF_API_PORT = 8001
-PDF_API_BASE_URL = f"http://{PDF_API_HOST}:{PDF_API_PORT}"
+PDF_API_BIND_HOST = os.getenv("PDF_API_BIND_HOST", "127.0.0.1")
+PDF_API_CONNECT_HOST = os.getenv("PDF_API_CONNECT_HOST", "127.0.0.1")
+PDF_API_PORT = int(os.getenv("PDF_API_PORT", "8001"))
+PDF_API_BASE_URL = f"http://{PDF_API_CONNECT_HOST}:{PDF_API_PORT}"
 
 
 def _fetch_lecture_pdf_summary(lecture_number: int) -> dict[str, str | int]:
@@ -85,7 +87,10 @@ def greet_user(
 
 
 if __name__ == "__main__":
-    pdf_api_server = start_pdf_api_server_in_thread(host=PDF_API_HOST, port=PDF_API_PORT)
+    pdf_api_server = start_pdf_api_server_in_thread(
+        host=PDF_API_BIND_HOST,
+        port=PDF_API_PORT,
+    )
     try:
         mcp.run(transport="streamable-http")
     finally:
