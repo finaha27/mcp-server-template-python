@@ -38,6 +38,29 @@ Start the server on port 3000:
 uv run main.py
 ```
 
+Running `main.py` now starts two local servers:
+- MCP server (Streamable HTTP): `http://127.0.0.1:3000/mcp`
+- PDF API server (separate app): `http://127.0.0.1:8001`
+
+The MCP tool does not parse PDFs directly. It sends an HTTP request to the PDF API as if it were a remote service.
+
+## Lecture PDF API
+
+The separate API app is implemented in `pdf_api_server.py`.
+
+Endpoint:
+- `GET /lecture-summary?lecture_number=1`
+
+Response fields:
+- `lecture_number`
+- `file_name`
+- `word_count`
+- `first_sentence`
+- `last_sentence`
+
+The API reads files from `docs/` using this pattern:
+- `MachineLearning-LectureXX.pdf`
+
 ## Running the Inspector
 
 ### Requirements

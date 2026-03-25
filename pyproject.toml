@@ -9,4 +9,5 @@ keywords = ["mcp", "llm", "alpic", "python"]
 dependencies = [
     "black>=25.1.0",
     "mcp",
+    "pypdf>=5.4.0",
 ]
