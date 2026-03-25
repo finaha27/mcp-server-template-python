@@ -49,6 +49,28 @@ You can configure the PDF API host/port using environment variables:
 - `PDF_API_CONNECT_HOST` (default: `127.0.0.1`)
 - `PDF_API_PORT` (default: `8001`)
 
+You can configure Streamable HTTP path for MCP clients:
+- `MCP_STREAMABLE_HTTP_PATH` (default: `/`)
+
+## OAuth2 (Keycloak) Integration
+
+The server supports OAuth2 as an MCP Resource Server when enabled.
+
+Set these environment variables:
+- `ENABLE_OAUTH=true`
+- `KEYCLOAK_ISSUER_URL` (example: `https://auth.example.com/realms/myrealm`)
+- `KEYCLOAK_INTROSPECTION_URL` (example: `https://auth.example.com/realms/myrealm/protocol/openid-connect/token/introspect`)
+- `KEYCLOAK_CLIENT_ID` (confidential client used for introspection)
+- `KEYCLOAK_CLIENT_SECRET`
+- `MCP_RESOURCE_SERVER_URL` (public URL of this MCP server)
+- `MCP_EXPECTED_AUDIENCE` (optional but recommended)
+
+Authorization model:
+- `freshman`: can analyze lectures `1..3`
+- `senior`: can analyze all lectures
+
+Any authenticated token without one of these scopes is rejected for lecture analysis.
+
 ## Lecture PDF API
 
 The separate API app is implemented in `pdf_api_server.py`.
